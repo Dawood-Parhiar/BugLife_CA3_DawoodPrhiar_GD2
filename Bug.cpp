@@ -11,7 +11,7 @@ Bug::Bug(int id, std::pair<int, int> position, int direction, int size, bool ali
     this->position = position;
     this->direction = direction;
     this->size = size;
-    this->alive = true;
+    this->alive = alive;
 }
 
 bool Bug::isWayBlocked() {
