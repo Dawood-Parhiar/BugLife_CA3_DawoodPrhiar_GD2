@@ -3,7 +3,7 @@ project(BugLife_CA3_DawoodParhiar_GD2)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(BugLife_CA3_DawoodParhiar_GD2 main.cpp Bug.cpp Bug.h)
+add_executable(BugLife_CA3_DawoodParhiar_GD2 main.cpp Bug.cpp Bug.h Board.cpp Board.h Crawler.cpp Crawler.h Hopper.cpp Hopper.h)
 
 set(SFML_STATIC_LIBRARIES TRUE)
 set(SFML_DIR "C:/SFML/lib/cmake/SFML")
