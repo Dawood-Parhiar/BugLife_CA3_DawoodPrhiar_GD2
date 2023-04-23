@@ -22,14 +22,31 @@ protected:
     Bug(int id, std::pair<int, int> position, int direction, int size, bool alive);
 
     protected: int id{};
-    protected: std::pair<int, int> position{};
+    protected:  std::pair<int, int> position;
     protected: int direction{};
     protected: int size{};
     protected: bool alive{};
     protected:   std::list<std::pair<int, int>> path{};
-    virtual void move() = 0;
-    static bool isWayBlocked() ;
 
+
+public:
+    int getId() const;
+
+    std::pair<int, int> getPosition() const;
+
+     int getDirection() const;
+
+    int getSize() const;
+
+    bool isAlive() const;
+
+    std::list<std::pair<int, int>> getPath() const;
+
+    void setDirection(int direction);
+
+    bool isWayBlocked() const ;
+
+    virtual void move() = 0;
 };
 
 
