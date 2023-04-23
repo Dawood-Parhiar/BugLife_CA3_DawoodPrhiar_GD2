@@ -2,10 +2,10 @@
 // Created by Dawood Parhiar on 10/04/2023.
 //
 
-#include "Board.h"
 #include "Bug.h"
 #include "Crawler.h"
 #include "Hopper.h"
+#include "Board.h"
 #include <iostream>
 #include <utility>
 #include <list>
@@ -18,9 +18,7 @@ using namespace std;
 BUGLIFE_CA3_DAWOODPARHIAR_GD2_BOARD_H
 
 
-void Board::removeBug() {
 
-}
 
 
 void Board::loadFromFile() {
@@ -64,6 +62,23 @@ void Board::displayAllBugs() {
             cout << "Hopper: " << bugs[i]->getId() << " " << bugs[i]->getPosition().first << " " << bugs[i]->getPosition().second << " " << bugs[i]->getDirection() << " " << bugs[i]->getSize() << " " << bugs[i]->isAlive() << " " << dynamic_cast<Hopper*>(bugs[i])->getHopDistance() << endl;
         } else if(dynamic_cast<Crawler*>(bugs[i]) != nullptr){
             cout << "Crawler: " << bugs[i]->getId() << " " << bugs[i]->getPosition().first << " " << bugs[i]->getPosition().second << " " << bugs[i]->getDirection() << " " << bugs[i]->getSize() << " " << bugs[i]->isAlive() << endl;
+        }
+    }
+}
+
+void Board::shakeBoard() {
+    //shake the board to move the bugs around
+    //for each bug in the vector of bugs
+    for (int i = 0; i < bugs.size(); i++) {
+        //check if the bug is a hopper or a crawler
+        if (dynamic_cast<Hopper *>(bugs[i]) != nullptr) {
+            //if the bug is a hopper
+            //call the move function
+            bugs[i]->move();
+        }else if (dynamic_cast<Crawler *>(bugs[i]) != nullptr) {
+            //if the bug is a crawler
+            //call the move function
+            bugs[i]->move();
         }
     }
 }

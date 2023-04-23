@@ -13,7 +13,6 @@ class Hopper: public Bug{
 protected:
     int hopDistance{};
     void move() override;
-    static bool isWayBlocked();
 
 public:
     Hopper(int id, std::pair<int, int> position, int direction, int size, bool alive, int hopDistance);

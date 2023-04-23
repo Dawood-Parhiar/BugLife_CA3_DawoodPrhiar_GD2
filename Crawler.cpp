@@ -12,7 +12,7 @@ Crawler::Crawler(int id, std::pair<int, int> position, int direction, int size, 
  void Crawler::move()
 {
     while(isWayBlocked()){
-        int newDirection = rand() % 4+1;
+        int newDirection = rand() % 5+1;
         setDirection(newDirection);
     }
 
@@ -29,6 +29,8 @@ Crawler::Crawler(int id, std::pair<int, int> position, int direction, int size, 
             break;
         case 4://West left
             position.first--;
+            break;
+        case 5: //stay dumb
             break;
     }
 

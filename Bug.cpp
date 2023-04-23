@@ -44,7 +44,7 @@ list<std::pair<int, int>> Bug::getPath() const {
     return path;
 }
 
-bool Bug::isWayBlocked() {
+bool Bug::isWayBlocked() const {
     //Checks if a bug is against an edge of the board AND if it is
     //facing in the direction of that edge. If so, its way is blocked.
     //[Used by the move() function]
@@ -63,8 +63,7 @@ bool Bug::isWayBlocked() {
     else if(getDirection() == 4 && position.first == 0)//West
     {
         return true;
-    }
-    else
+    }else
     {
         return false;
     }

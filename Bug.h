@@ -27,7 +27,6 @@ protected:
     protected: int size{};
     protected: bool alive{};
     protected:   std::list<std::pair<int, int>> path{};
-    virtual void move() = 0;
 
 
 public:
@@ -45,7 +44,9 @@ public:
 
     void setDirection(int direction);
 
-    bool isWayBlocked() ;
+    bool isWayBlocked() const ;
+
+    virtual void move() = 0;
 };
 
 

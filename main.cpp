@@ -1,10 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <unistd.h>
 #include "SFML/Graphics.hpp"
 #include "SFML/Window.hpp"
 #include "Bug.h"
 #include "Board.h"
+#include "Hopper.h"
+#include "Crawler.h"
 
 class Hopper;
 class Crawler;
@@ -13,8 +16,8 @@ using namespace std;
 
 
 void drawMenu();
-void renderWindow(Board& board);
-void chooseOption(Board &board);
+void renderWindow();
+void chooseOption();
 void loadFromFile();
 
 void displayAllBugs();
@@ -31,22 +34,20 @@ void runSimulation();
 
 void lifeHistoryToFile();
 
+void drawBugsOnBoard(sf::RenderWindow& window);
+
 [[maybe_unused]]
 
-
+//create a global board object
+Board board;
 int main() {
-    Board board;
 
-
-    renderWindow(board);
     drawMenu();
-    chooseOption(board);
-
-
+    chooseOption();
     return 0;
 }
 
-void renderWindow(Board& board) {
+void renderWindow() {
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "SFML works!");
     // run the program as long as the window is open
     while (window.isOpen())
@@ -58,6 +59,15 @@ void renderWindow(Board& board) {
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed)
                 window.close();
+            if(event.type == sf::Event::KeyPressed)
+            {
+                //if the user presses the space bar
+                //the board will be shaken
+                if(event.key.code == sf::Keyboard::Space)
+                {
+                    board.shakeBoard();
+                }
+            }
         }
 
         // clear the window with black color
@@ -74,36 +84,39 @@ void renderWindow(Board& board) {
                 rectangle.setOutlineThickness(1);
                 rectangle.setPosition(i * 100, j * 100);
                 window.draw(rectangle);
-                //place the bugs on the grid
-
-
-
-
             }
 
         }
         //draw the bugs
+        drawBugsOnBoard(window);
+        // end the current frame
+        window.display();
+    }
+}
+void drawBugsOnBoard(sf::RenderWindow& window) {
 
-        std::vector<Bug*>& bug_vector = board.getBugs();
+    std::vector<Bug*>& bug_vector = board.getBugs();//
 
-        for (int i = 0; i < bug_vector.size(); i++) {
+    for (int i = 0; i < bug_vector.size(); i++)
+    {
+        if(dynamic_cast<Hopper*>(bug_vector[i]) != nullptr)
+        {
             sf::CircleShape shape(50.f);
-            shape.setFillColor(sf::Color::Blue);
+            sf::Texture texture;
+            texture.loadFromFile("images/hopper2.png");
+            shape.setTexture(&texture);
             shape.setPosition(bug_vector[i]->getPosition().first * 100, bug_vector[i]->getPosition().second * 100);
             window.draw(shape);
         }
-        int x =2;
-        int y=2;
-
-        sf::CircleShape shape(50.f);
-        shape.setFillColor(sf::Color::Green);
-        shape.setPosition(x*100, y*100);
-        window.draw(shape);
-
-
-
-        // end the current frame
-        window.display();
+        else if(dynamic_cast<Crawler*>(bug_vector[i]) != nullptr)
+        {
+            sf::CircleShape shape(50.f);
+            sf::Texture texture;
+            texture.loadFromFile("images/crawler.png");
+            shape.setTexture(&texture);
+            shape.setPosition(bug_vector[i]->getPosition().first * 100, bug_vector[i]->getPosition().second * 100);
+            window.draw(shape);
+        }
     }
 }
 
@@ -120,9 +133,8 @@ void drawMenu() {
         cout << "8. Exit (write Life History of all Bugs to file)" << endl;
 
 }
-void chooseOption(Board &board) {
-    //Board board;
-
+void chooseOption()
+{
     bool exit = false;
     while(!exit) {
         cout << "Please choose an option" << endl;
@@ -132,6 +144,7 @@ void chooseOption(Board &board) {
             case 1:
                 cout << "Loading from file" << endl;
                 board.loadFromFile();
+                renderWindow();
                 break;
             case 2:
                 board.displayAllBugs();
@@ -140,7 +153,7 @@ void chooseOption(Board &board) {
                 findBugById();
                 break;
             case 4:
-                shakeBoard();
+                board.shakeBoard();
                 break;
             case 5:
                 bugPathHistory();
@@ -170,7 +183,14 @@ void lifeHistoryToFile() {
 }
 
 void runSimulation() {
-
+    cout << "Running simulation" << endl;
+    board.shakeBoard();
+    //shake the board every second for infinite time
+    while(true)
+    {
+        board.shakeBoard();
+        sleep(1);
+    }
 }
 
 void cellsWithBugs() {
@@ -182,20 +202,11 @@ void bugPathHistory() {
 
 }
 
-void shakeBoard() {
-    cout << "Shaking board" << endl;
-
-
-}
 
 void findBugById() {
     cout << "Finding bug by id" << endl;
 
 }
 
-void displayAllBugs() {
-    cout << "Displaying all bugs" << endl;
-
-}
 
 
