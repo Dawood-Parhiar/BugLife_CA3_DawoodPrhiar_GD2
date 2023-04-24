@@ -8,6 +8,7 @@
 //utility standard library
 #include <utility>
 #include <list>
+#include <string>
 
 class Bug {
 // this class will be used to create a bug object
@@ -27,6 +28,7 @@ protected:
     protected: int size{};
     protected: bool alive{};
     protected:   std::list<std::pair<int, int>> path{};
+protected: std::string bugType{};
 
 
 public:
@@ -40,13 +42,24 @@ public:
 
     bool isAlive() const;
 
+    bool setAlive(bool alive);
+
     std::list<std::pair<int, int>> getPath() const;
 
     void setDirection(int direction);
 
+    //set position
+    void setPosition(std::pair<int, int> position);
+
+    //set size
+    void setSize(int size);
+
     bool isWayBlocked() const ;
 
     virtual void move() = 0;
+
+
+    std::string getBugType() const;
 };
 
 

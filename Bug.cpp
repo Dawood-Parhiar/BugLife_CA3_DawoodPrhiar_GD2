@@ -14,6 +14,7 @@ Bug::Bug(int id, std::pair<int, int> position, int direction, int size, bool ali
     this->direction = direction;
     this->size = size;
     this->alive = alive;
+
 }
 
 int Bug::getId() const {
@@ -38,6 +39,19 @@ int Bug::getSize() const {
 
 bool Bug::isAlive() const {
     return alive;
+}
+
+std::string Bug::getBugType() const {
+    return 0;
+}
+//bool set alive
+bool Bug::setAlive(bool alive) {
+    Bug::alive = true;
+}
+
+//set size
+void Bug::setSize(int size) {
+    Bug::size = size;
 }
 
 list<std::pair<int, int>> Bug::getPath() const {
@@ -68,6 +82,12 @@ bool Bug::isWayBlocked() const {
         return false;
     }
 }
+
+void Bug::setPosition(std::pair<int, int> position) {
+
+}
+
+
 
 
 

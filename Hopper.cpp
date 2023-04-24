@@ -33,7 +33,7 @@ void Hopper::setHopDistance(int h) {
     //- record new position in hoppers path history
 
     while(isWayBlocked()){
-        int newDirection = rand() % 5+1;
+        int newDirection = rand() % 4+1;
         setDirection(newDirection);
     }
 

@@ -2,7 +2,7 @@
 // Created by Dawood Parhiar on 10/04/2023.
 //
 
-#ifndef BUGLIFE_CA3_DAWOODPARHIAR_GD2_BOARD_H
+
 #define BUGLIFE_CA3_DAWOODPARHIAR_GD2_BOARD_H
 
 
@@ -30,7 +30,10 @@ public:
 
     void shakeBoard();
 
+    void fight();
+
     std::vector<Bug*> & getBugs() { return bugs;}
 
+    bool checkAllDead();
 };
-#endif BUGLIFE_CA3_DAWOODPARHIAR_GD2_BOARD_H
+
